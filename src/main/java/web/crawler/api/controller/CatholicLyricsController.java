@@ -34,7 +34,7 @@ public class CatholicLyricsController {
 
     @GetMapping
     public ResponseEntity<Page<CatholicLyricsModel>> getLyrics(
-            @PageableDefault(page = 0, size = 10, sort = "description", direction = Sort.Direction.ASC) Pageable page){
+            @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable page){
         return ResponseEntity.status(HttpStatus.OK).body(this.catholicLyricsService.findAll(page));
     }
 
