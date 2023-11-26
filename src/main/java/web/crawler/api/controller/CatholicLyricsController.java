@@ -8,8 +8,10 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import web.crawler.api.dto.CatholicLyricsDto;
 import web.crawler.api.model.CatholicLyricsModel;
+import web.crawler.api.model.CrawlerUrlBuilder;
 import web.crawler.api.service.CatholicLyricsService;
 
 import javax.validation.Valid;
@@ -69,5 +71,23 @@ public class CatholicLyricsController {
         BeanUtils.copyProperties(lyricDto, lyricModel);
         lyricModel.setId(productModelOptional.get().getId());
         return ResponseEntity.status(HttpStatus.OK).body(this.catholicLyricsService.save(lyricModel));
+    }
+
+    @GetMapping("/startCrawl")
+    public ResponseEntity<String> startCrawl() {
+        String scrapyUrl = "http://localhost:9080/crawl.json";
+        String spiderName = "cifras_club_item";
+        String url = "https://www.cifraclub.com.br/catolicas/eu-navegarei/";
+
+        String apiUrl = CrawlerUrlBuilder.builder()
+                .scrapyUrl(scrapyUrl)
+                .spiderName(spiderName)
+                .url(url)
+                .build();
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response = restTemplate.getForEntity(apiUrl, String.class);
+
+        return ResponseEntity.ok(response.getBody());
     }
 }
