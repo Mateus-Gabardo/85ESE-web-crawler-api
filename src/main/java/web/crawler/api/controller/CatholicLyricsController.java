@@ -17,6 +17,7 @@ import web.crawler.api.service.CatholicLyricsService;
 
 import javax.validation.Valid;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -78,5 +79,11 @@ public class CatholicLyricsController {
     public ResponseEntity<String> startCrawl(@RequestBody CrawlRequestDto crawlRequest) {
         ResponseEntity<String> response = catholicLyricsService.startCrawler(crawlRequest);
         return ResponseEntity.ok(response.getBody());
+    }
+
+    @PostMapping("/startCrawlAll")
+    public ResponseEntity<String> startCrawlAll() {
+        CompletableFuture.runAsync(catholicLyricsService::startCrawlerAll);
+        return ResponseEntity.ok("O processo de rastreamento foi iniciado. Aguarde a conclusão.");
     }
 }
