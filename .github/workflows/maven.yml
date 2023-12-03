@@ -30,7 +30,7 @@ jobs:
     - name: Test with Maven
       run: mvn test --file pom.xml
   build:
-    # needs: test
+    needs: test
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
