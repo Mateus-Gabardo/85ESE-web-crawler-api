@@ -7,8 +7,6 @@ services:
       POSTGRES_PASSWORD: 1234
     ports:
       - "5432:5432"
-    networks:
-      - web-crawler
   web-crawler-api:
     image: gabardomateus/web-crawler-api
     container_name: web-crawler-api
@@ -16,8 +14,6 @@ services:
       - "8080:8080"
     environment:
       DB_URL: "jdbc:postgresql://postgres:5432/postgres"
-    networks:
-      - web-crawler
   web-crawler-cifras:
     image: gabardomateus/web-crawler-cifras
     container_name: web-crawler-cifras
@@ -25,17 +21,8 @@ services:
       - "9080:9080"
     environment:
       DB_HOST: "postgres"
-    networks:
-      - web-crawler
   web-crawler-scheduler:
     image: gabardomateus/web-crawler-scheduler
     container_name: web-crawler-scheduler
     ports:
       - "8081:8081"
-    networks:
-      - web-crawler
-networks:
-  web-crawler:
-    driver: bridge
-    external:
-      name: web-crawler
