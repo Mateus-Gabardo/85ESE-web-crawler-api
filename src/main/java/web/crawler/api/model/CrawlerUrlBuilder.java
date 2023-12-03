@@ -49,6 +49,9 @@ public class CrawlerUrlBuilder {
         if (url != null) {
             apiUrl.append("&url=").append(url);
         }
+//        if(maxRequests != null){
+//            apiUrl.append("&max_request=").append(maxRequests);
+//        }
         return apiUrl.toString();
     }
 }

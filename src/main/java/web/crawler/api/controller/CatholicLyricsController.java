@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import web.crawler.api.dto.CatholicLyricsDto;
+import web.crawler.api.dto.CrawlRequestDto;
 import web.crawler.api.model.CatholicLyricsModel;
 import web.crawler.api.model.CrawlerUrlBuilder;
 import web.crawler.api.service.CatholicLyricsService;
@@ -73,21 +74,9 @@ public class CatholicLyricsController {
         return ResponseEntity.status(HttpStatus.OK).body(this.catholicLyricsService.save(lyricModel));
     }
 
-    @GetMapping("/startCrawl")
-    public ResponseEntity<String> startCrawl() {
-        String scrapyUrl = "http://localhost:9080/crawl.json";
-        String spiderName = "cifras_club_item";
-        String url = "https://www.cifraclub.com.br/catolicas/eu-navegarei/";
-
-        String apiUrl = CrawlerUrlBuilder.builder()
-                .scrapyUrl(scrapyUrl)
-                .spiderName(spiderName)
-                .url(url)
-                .build();
-
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.getForEntity(apiUrl, String.class);
-
+    @PostMapping("/startCrawl")
+    public ResponseEntity<String> startCrawl(@RequestBody CrawlRequestDto crawlRequest) {
+        ResponseEntity<String> response = catholicLyricsService.startCrawler(crawlRequest);
         return ResponseEntity.ok(response.getBody());
     }
 }

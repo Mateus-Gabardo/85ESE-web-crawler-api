@@ -1,5 +1,7 @@
 # syntax=docker/dockerfile:1.4
 
+ENV DB_URL jdbc:postgresql://postgres:5432/postgres
+
 FROM maven:3.8.5-openjdk-11 AS builder
 WORKDIR /workdir/server
 COPY pom.xml /workdir/server/pom.xml
