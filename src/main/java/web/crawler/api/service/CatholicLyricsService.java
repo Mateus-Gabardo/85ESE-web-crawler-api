@@ -42,7 +42,7 @@ public class CatholicLyricsService {
     }
 
     public ResponseEntity<String> startCrawler(CrawlRequestDto request){
-        String scrapyUrl = "http://localhost:9080/crawl.json";
+        String scrapyUrl = "http://web-crawler-cifras:9080/crawl.json";
         String spiderName = request.getSpiderName() != null ? request.getSpiderName() : "cifras_club_item";
         String url = request.getUrl() != null ? request.getUrl() : "https://www.cifraclub.com.br/catolicas/eu-navegarei/";
 
@@ -58,7 +58,7 @@ public class CatholicLyricsService {
 
     @Async
     public ResponseEntity<String> startCrawlerAll(){
-        String scrapyUrl = "http://localhost:9080/crawl.json";
+        String scrapyUrl = "http://web-crawler-cifras:9080/crawl.json";
         String spiderName = "cifras_club";
 
         String apiUrl = CrawlerUrlBuilder.builder()
