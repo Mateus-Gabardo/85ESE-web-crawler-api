@@ -10,40 +10,59 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: 
-      - develop
+    branches: [ "main" ]
   pull_request:
-    branches: 
-      - develop
-      - main
+    branches: [ "main" ]
 
 jobs:
+  # test:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - name: Set up JDK 18
+  #     uses: actions/setup-java@v3
+  #     with:
+  #       java-version: '18'
+  #       distribution: 'temurin'
+  #       cache: maven
+  #   - name: Test with Maven
+  #     run: mvn test --file pom.xml
   build:
+    # needs: test
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 11
-      uses: actions/setup-java@v3
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+    - name: Run postgres
+      run: docker run --name postgres -e POSTGRES_PASSWORD=1234 -d postgres
+    - name: Build and export
+      uses: docker/build-push-action@v5
       with:
-        java-version: '11'
-        distribution: 'temurin'
-        cache: maven
-    
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
-
-    # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
-    - name: Update dependency graph
-      uses: advanced-security/maven-dependency-submission-action@571e99aab1055c2e71a1e2309b9691de18d6b7d6
-
+        context: .
+        tags: web-crawler-api:latest
+        outputs: type=docker,dest=/tmp/web-crawler-api.tar
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: web-crawler-api
+        path: /tmp/web-crawler-api.tar
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
+    - name: Download artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: web-crawler-api
+        path: /tmp
+    - name: Load image
+      run: |
+        docker load --input /tmp/web-crawler-api.tar
+        docker image ls -a
+        docker tag web-crawler-api gabardomateus/web-crawler-api
     - name: Docker login
-      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}    
-    - name: Build docker image
-      run: docker build -t web-crawler-api .
+      run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
     - name: Push docker image
-      run:  docker push web-crawler-scheduler
+      run:  docker push gabardomateus/web-crawler-api
