@@ -84,7 +84,7 @@ public class CatholicLyricsController {
     @PostMapping("/startCrawlAll")
     public ResponseEntity<String> startCrawlAll() {
         String retorno = "O processo de rastreamento foi iniciado. Aguarde a conclusão.";
-        System.out.println(retorno);
+        System.out.println(retorno); 
         CompletableFuture.runAsync(catholicLyricsService::startCrawlerAll);
         return ResponseEntity.ok(retorno);
     }
