@@ -7,6 +7,7 @@ docker-compose up -d
 ```
 Tal comando irá subir três serviços sendo eles o serviço da api, um serviço de schedular e um serviço de web-crawler.
 A documentação oficial do projeto pode ser visto [aqui](https://github.com/Mateus-Gabardo/85ESE-web-crawler-api/wiki/Documento-de-especifica%C3%A7%C3%A3o).
+Import a collection criada disponivel na raiz do projeto.
 
 Serviços:
 
