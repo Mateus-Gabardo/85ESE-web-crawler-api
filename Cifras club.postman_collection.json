@@ -1,0 +1,267 @@
+{
+	"info": {
+		"_postman_id": "48606eca-e0ca-4f6b-8a7a-c60585d9d55c",
+		"name": "Cifras club",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18749755"
+	},
+	"item": [
+		{
+			"name": "post",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Musica teste\",\r\n    \"author\": \"Autor desconhecido\",\r\n    \"lyric\": \"cantos \"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/catholicLyrics/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"catholicLyrics",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Musica teste\",\r\n    \"author\": \"Autor desconhecido\",\r\n    \"lyric\": \"cantos 3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/catholicLyrics/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"catholicLyrics",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/catholicLyrics/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"catholicLyrics",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/catholicLyrics/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"catholicLyrics",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/catholicLyrics/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"catholicLyrics",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crawler_item",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9080/crawl.json?spider_name=cifras_club_item&start_requests=true&url=https://www.cifraclub.com.br/catolicas/eu-navegarei/&max_requests=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9080",
+					"path": [
+						"crawl.json"
+					],
+					"query": [
+						{
+							"key": "spider_name",
+							"value": "cifras_club_item"
+						},
+						{
+							"key": "start_requests",
+							"value": "true"
+						},
+						{
+							"key": "url",
+							"value": "https://www.cifraclub.com.br/catolicas/eu-navegarei/"
+						},
+						{
+							"key": "max_requests",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api-crawler",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/catholicLyrics/startCrawlAll",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"catholicLyrics",
+						"startCrawlAll"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api-crawler-item",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"spiderName\": \"cifras_club_item\",\r\n    \"url\": \"https://www.cifraclub.com.br/catolicas/eu-navegarei/\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/catholicLyrics/startCrawl",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"catholicLyrics",
+						"startCrawl"
+					],
+					"query": [
+						{
+							"key": "spider_name",
+							"value": "cifras_club",
+							"disabled": true
+						},
+						{
+							"key": "url",
+							"value": "https://www.cifraclub.com.br/catolicas/eu-navegarei/",
+							"disabled": true
+						},
+						{
+							"key": "start_requests",
+							"value": "true",
+							"disabled": true
+						},
+						{
+							"key": "max_requests",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
